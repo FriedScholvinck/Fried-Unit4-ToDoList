@@ -25,7 +25,7 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
         }
     }
     
-    // delegate function
+    /// delegate function
     func checkmarkTapped(sender: ToDoCell) {
         if let indexPath = tableView.indexPath(for: sender) {
             var todo = todos[indexPath.row]
@@ -40,12 +40,12 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
         }
     }
     
-    // count todos for number of rows
+    /// count todos for number of rows
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return todos.count
     }
     
-    // fill table rows with todos
+    /// fill table rows with todos
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoCellIdentifier") as? ToDoCell else { fatalError("Could not dequeue a cell") }
         cell.delegate = self
@@ -55,12 +55,12 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
         return cell
     }
     
-    // every to do can be deleted
+    /// every to do can be deleted
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    // deleting a to do
+    /// deleting a to do
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             todos.remove(at: indexPath.row)
@@ -71,7 +71,7 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
         }
     }
     
-    // create unwind method for buttons cancel and save
+    /// create unwind method for buttons cancel and save
     @IBAction func unwindToToDoList(segue: UIStoryboardSegue) {
         
         // check if save button was pressed
@@ -96,7 +96,7 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
         ToDo.saveToDos(todos)
     }
     
-    // pass information to show details of to do
+    /// pass information to show details of to do
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetails" {
             
@@ -109,6 +109,4 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
             todoViewController.todo = selectedTodo
         }
     }
-    
-    
 }

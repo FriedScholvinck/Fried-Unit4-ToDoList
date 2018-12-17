@@ -19,11 +19,10 @@ class ToDoViewController: UITableViewController {
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // update details if existing todo was clicked
+        // update details if existing to-do was clicked
         if let todo = todo {
             navigationItem.title = "To Do"
             titleTextField.text = todo.title
@@ -31,6 +30,7 @@ class ToDoViewController: UITableViewController {
             dueDatePickerView.date = todo.dueDate
             notesTextView.text = todo.notes
         } else {
+            
             // set logical starting date to 24 hours from now
             dueDatePickerView.date = Date().addingTimeInterval(24 * 60 * 60)
         }
@@ -44,12 +44,13 @@ class ToDoViewController: UITableViewController {
         let normalCellHeight = CGFloat(44)
         let largeCellHeight = CGFloat(200)
         
+        // set cell height for due date cell
         switch(indexPath) {
-        case [1,0]: //Due Date Cell
+        case [1,0]:
             return isPickerHidden ? normalCellHeight :
             largeCellHeight
             
-        case [2,0]: //Notes Cell
+        case [2,0]:
             return largeCellHeight
         
         default: return normalCellHeight
@@ -60,17 +61,13 @@ class ToDoViewController: UITableViewController {
         switch (indexPath) {
         case [1,0]:
             isPickerHidden = !isPickerHidden
-            
             dueDateLabel.textColor = isPickerHidden ? .black : tableView.tintColor
-            
             tableView.beginUpdates()
             tableView.endUpdates()
-        
         default: break
         }
     }
 
-    
     // get correct string for date label
     func updateDueDateLabel(date: Date) {
         dueDateLabel.text = ToDo.dueDateFormatter.string(from: date)
@@ -101,7 +98,7 @@ class ToDoViewController: UITableViewController {
         updateDueDateLabel(date: dueDatePickerView.date)
     }
     
-    // pass information to table for creating and saving to do
+    /// pass information to table for creating and saving to do
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
@@ -116,7 +113,4 @@ class ToDoViewController: UITableViewController {
         
         todo = ToDo(title: title, isComplete: isComplete, dueDate: dueDate, notes: notes)
     }
-    
-    
 }
-
